@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml;
 using Newtonsoft.Json;
-using PDFtoZPL;
+//using PDFtoZPL;
 
 namespace ConvertData
 {
@@ -18,7 +18,7 @@ namespace ConvertData
         bool xml2json(string InPath, string OutPath, bool considerXMLRootObj);
         bool json2xml(string InPath, string OutPath, string rootNodeXML);
         string Base64ToString(string Base64Text);
-        string Base64PDFToZPL(string B64PDF, string password, int page, int dpi, int? width, int? height);
+        string Base64PDFToZPL(string B64PDF, string password, int page, int dpi, int width, int height);
 
         //Property
         string Status { get; set; }
@@ -110,24 +110,17 @@ namespace ConvertData
         }
 
         //Wandelt ein Base64 codiertes .pdf zu einem .zpl string > für Zebra label Drucker
-        public string Base64PDFToZPL(string B64PDF, string password, int page, int dpi, int? width, int? height)
+        public string Base64PDFToZPL(string B64PDF, string password, int page, int dpi, int width, int height)
         {
             string _zplString = string.Empty;
 
             if (password == "")            
                 password = null;
 
-            if (width == 0 )
-                width = null;
-
-            if (height == 0)
-                height = null;
-
             try
             {
-                _zplString = Conversion.ConvertPdfPage(B64PDF,password, page, dpi, width, height);
+                _zplString = PDFtoZPL.Conversion.ConvertPdfPage(B64PDF,password, page, dpi, width, height);
                 Status = "okay";
-
             }
             catch (Exception ex)
             {
@@ -135,7 +128,6 @@ namespace ConvertData
             }
 
             return(_zplString);
-
         }
 
     }
