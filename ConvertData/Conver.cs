@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml;
 using Newtonsoft.Json;
-
+using PDFtoZPL;
 
 namespace ConvertData
 {
@@ -18,6 +18,7 @@ namespace ConvertData
         bool xml2json(string InPath, string OutPath, bool considerXMLRootObj);
         bool json2xml(string InPath, string OutPath, string rootNodeXML);
         string Base64ToString(string Base64Text);
+        string Base64PDFToZPL(string B64PDF, string password, int page, int dpi, int? width, int? height);
 
         //Property
         string Status { get; set; }
@@ -32,6 +33,7 @@ namespace ConvertData
         public string Status { get; set; }
 
 
+        //Konvertiert eine xml in eine json Datei 
         public bool xml2json(string InPath, string OutPath, bool considerXMLRootObj)
         {
 
@@ -66,6 +68,7 @@ namespace ConvertData
 
         }
 
+        //Konvertiert eine json in eine xml Datei
         public bool json2xml(string InPath, string OutPath, string rootNodeXML)
         {
 
@@ -90,6 +93,7 @@ namespace ConvertData
 
         }
 
+        //wandelt einen Base64 zu einem normalen String
         public string Base64ToString(string Base64Text)
         {
             try
@@ -103,6 +107,35 @@ namespace ConvertData
                 Status = ex.ToString();
                 return (string.Empty);                
             }
+        }
+
+        //Wandelt ein Base64 codiertes .pdf zu einem .zpl string > für Zebra label Drucker
+        public string Base64PDFToZPL(string B64PDF, string password, int page, int dpi, int? width, int? height)
+        {
+            string _zplString = string.Empty;
+
+            if (password == "")            
+                password = null;
+
+            if (width == 0 )
+                width = null;
+
+            if (height == 0)
+                height = null;
+
+            try
+            {
+                _zplString = Conversion.ConvertPdfPage(B64PDF,password, page, dpi, width, height);
+                Status = "okay";
+
+            }
+            catch (Exception ex)
+            {
+                Status = ex.ToString();                
+            }
+
+            return(_zplString);
+
         }
 
     }
