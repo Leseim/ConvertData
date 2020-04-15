@@ -42,9 +42,8 @@
     <AssemblyOriginatorKeyFile>ConvertData.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Users\Miesel\Desktop\test\convertJson_Test\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PDFtoZPL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4fcb8c6b1db3c3c7, processorArchitecture=MSIL">
       <HintPath>..\packages\PDFtoZPL.1.0.0\lib\netstandard2.0\PDFtoZPL.dll</HintPath>
